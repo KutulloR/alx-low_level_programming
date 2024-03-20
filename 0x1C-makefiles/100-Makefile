@@ -1,22 +1,35 @@
+# Define the compiler
 CC = gcc
-SRC = main.c school.c
-OBJ = $(SRC:.c=.o)
-	NAME = school
-	CFLAGS = -Wall -Werror -Wextra -pedantic
 
+# Define the source files
+SRC = main.c school.c
+
+# Define object files by replacing '.c' extension with '.o'
+OBJ = $(SRC:.c=.o)
+
+# Define the name of the executable
+NAME = school
+
+# Compiler flags for warnings and errors
+CFLAGS = -Wall -Werror -Wextra -pedantic
+
+# Declare phony targets (not filenames)
 .PHONY: all clean oclean fclean re
 
-all: $(NAME)
+# Build all files executable
+all: m.h $(OBJ)
+    $(CC) $(OBJ) -o $(NAME)
 
-$(NAME): m.h $(OBJ)
-	$(CC) $(OBJ) -o $(NAME)
-
+# Clean temporary files and executable
 clean:
 	$(RM) *~ $(NAME)
 
+# Clean object files
 oclean:
 	$(RM) $(OBJ)
 
+# Clean all (temporary files, executables, and object files)
 fclean: clean oclean
 
-re: fclean all
+# Clean all and recompile all source files
+re: oclean all
